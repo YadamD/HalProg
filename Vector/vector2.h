@@ -12,6 +12,11 @@ struct Vector2
         return *this;
     }
 
+    Vector2<T>& operator-=( Vector2<T> const& v){
+        x-=v.x; y-=v.y;
+        return *this;
+    }
+
     Vector2<T>& operator*=(T const& a){
         x*=a; y*=a;
         return *this;
@@ -26,6 +31,11 @@ struct Vector2
 template<typename T>
 Vector2<T> operator+(Vector2<T> const& a, Vector2<T> const& b){
     return Vector2<T>{a.x+b.x, a.y+b.y};
+}
+
+template<typename T>
+Vector2<T> operator-(Vector2<T> const& a, Vector2<T> const& b){
+    return Vector2<T>{a.x-b.x, a.y-b.y};
 }
 
 template<typename T>
@@ -49,20 +59,20 @@ T dot(Vector2<T> const& u, Vector2<T> const& v){
 }
 
 template<typename T>
-double sqlen(Vector2<T> const& v){
+T sqlen(Vector2<T> const& v){
     return v.x*v.x+v.y*v.y;
 }
 
 template<typename T>
-double len(Vector2<T> const& v){
+T len(Vector2<T> const& v){
     return sqrt(sqlen(v));
 }
 
 template<typename T>
 Vector2<T> normalize(Vector2<T> const& v){
     Vector2<T> u;
-    u.x=v.x*1/len(v);
-    u.y=v.y*1/len(v);
+    u=v/len(v);
+    return u;
 }
 
 template<typename T>
@@ -77,4 +87,12 @@ std::istream& operator>>(std::istream& i, Vector2<T>& v){
     return i;
 }
 
-
+bool vecnoteq(Vector2<T> const & v, Vector2<T> const & u, tol){
+    if((v.x-u.x)>tol || (v.y-u.y)>tol){
+        return true;
+    }
+    else{
+        return false;
+    }
+    
+}

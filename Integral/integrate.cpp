@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <math.h>
+#include <cmath>
 
 double fun(double x){
     	    return cos(x) * exp(-1*x*x);
@@ -8,11 +8,10 @@ double fun(double x){
 
 double integrate(int n, double x0, double x1) {
 	double ans=0;
-	double x_0, x_1;
 	double h=(x1-x0)/n ;
 	for(int i=0; i<n+1; i++){
-    	x_0=x0+i*h;
-    	x_1=x_0+h;
+    	double x_0=x0+i*h;
+    	double x_1=x_0+h;
     	ans+=(fun(x_1)+fun(x_0))*h/2;
 	}
 	return ans;

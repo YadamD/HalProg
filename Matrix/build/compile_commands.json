@@ -1,0 +1,7 @@
+[
+{
+  "directory": "c:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Matrix/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1420~1.275\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /JMC   /FoCMakeFiles\\matr.dir\\main.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bence\\Documents\\UNIVERSITY\\halprog\\HalProg\\Matrix\\main.cpp",
+  "file": "C:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Matrix/main.cpp"
+}
+]
