@@ -1,0 +1,40 @@
+Project files for map contouring using the marching squares algorithm
+
+The project is almost complete, although a bit unorganized still.
+
+  The program takes a topological map (scalar field) as input. Then after we select what elevations we want to make contour lines,
+it turns the data of the map into binary (higher or lower than given altitude). It then applies the marching squares algorithm on this
+new "binarized" data. We can do that for a few elevations and then combine them into one "contour map" (no graphical visualization).
+  Also, the program can take a point on the map (reasonably within a contour line that is FULLY inside the map (not cut off at the edges)),
+and calculate the winding number for that point.
+
+  The program uses 'matr2D.h' square matrix class, therefore provided data should be in NxN form
+
+Functions and what they do:
+
+arr(): Takes a filename (e.g.: "data.txt") and dimensions (eg.: 256, 256). Reads the data from the file into a smatrix<double> 
+(square matrix) of the given dimensions.
+
+addup(): Adds two given size matrices together and returns the sum.
+
+write_arr(): writes smatrix of doubles into a file
+write_arr_int(): writes smatrix of ints into a file
+
+binary(): takes a matrix and a threshold, changes the numbers above the threshold to 1, and the numbers below to 0
+
+!!! In order to better understand the workings of the next functions, it is important to take a look at the image file in the folder !!! 
+
+msquares(): moves a 2x2 window over the binary map (matrix) and returns the value based on the permutation of 1-s and 0-s. There are 
+16 possible cases. Writes 0 if all 4 of the elements are the same (1111 or 0000) otherwise it returns the value of the binary number
+that we get if we look at the four numbers in a specific order: TopLeft-->TopRight-->BottomRight-->BottomLeft. e.g.: 1101 = 13. The
+function returns an (N-1)x(N-1) sized matrix
+
+combine(): combines previous functions (binary, msquares, addup) into one.
+
+next_cell(): used on the already contoured map. If we want to move around a contour, this function will help us know which direction
+the next contour line is, based on the type of contour line (#s 1-14), and the side which we entered the cell.
+It returns deltaX, deltaY (the direction to the next cell that contains a contour line) and out2in, the number of the side we will enter
+the next cell at
+
+wind(): takes a point with coordinates x0, y0. Then it finds a contour line, goes around using the next_cell() function and calculates
+the radians we cover while going around.
