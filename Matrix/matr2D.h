@@ -1,6 +1,8 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <string>
+#include <sstream>
 #include <numeric>
 #include <initializer_list>
 #include <cmath>
@@ -52,10 +54,13 @@ vector<T> matmul(vector<T> const& m1, vector<T> const& m2, int l){
 template<typename T>
 class smatrix
 {
-	int l;
-    vector<T> data;
+	
 
     public:
+        
+        int l;
+        vector<T> data;
+
         smatrix(): l{1}, data{{0}}{};
         smatrix(int i): l(i), data(i*i, 0){};
         smatrix(int i, vector<T> const& v){
@@ -67,8 +72,6 @@ class smatrix
                 data=v;
             }
         }
-
-	    //smatrix( smatrix && ) = default;
         
         smatrix<T>(smatrix<T> const& copy): l{copy.l}, data{copy.data}{
             if(l!=copy.l){
@@ -351,9 +354,9 @@ istream& operator>>(istream& s, smatrix<T>& m){
                 return s;
             }
         }
-        if(dim * dim == static_cast<int>(temp_v.size())){
-            mat.data = move(temp_v);
-            mat.dim = dim;
+        if(dim * dim == static_cast<int>(temp_vec.size())){
+            m.data = move(temp_vec);
+            m.l = dim;
         }
         else{
             rewind();

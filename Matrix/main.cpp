@@ -1,9 +1,13 @@
 #include <iostream>
+#include <string>
 #include "matr2D.h"
 
 using namespace std;
 
 int main(int, char**) {
+    
+    double err=1e-9;
+    
     cout.precision(6);
     
 
@@ -84,12 +88,31 @@ int main(int, char**) {
         if(c[0] != 1.1 || c[1] != 2.2 || c[2] != 3.3 || c[3] != 4.4)    { msg("self assignment test [elements]"); }
 	}
 
-    
-    smatrix<double> const m1(3,{123.4,42.42,10.0,32.4,65.7,99.9,1.0,2.0,3.0});
-    smatrix<double> const m2(3,{30.12,624.1,142.2,55.55,12.0,12.0,24.5,2.1,400.01});
+    //Test string read:
+    {
+        smatrix<double> m(2,{1.1, 2.2, 3.3, 4.4});
+        stringstream ss;
+        ss<<m;
+        string ms = ss.str();
+        if(ms != "2;1.1,2.2,3.3,4.4,")      { msg("string read");   }
+    }
+
+    //Test write:
+    {
+        smatrix<double> m(2,{1.1, 2.2, 3.3, 4.4});
+        smatrix<double> m_wr(2);
+        stringstream ss;
+        ss<<m;
+        ss>>m_wr;
+        if(matr_not_eq(m,m_wr,err))      { msg("string write");   }
+    }
+
+
+    smatrix<double> m1(3,{123.4,42.42,10.0,32.4,65.7,99.9,1.0,2.0,3.0});
+    smatrix<double> m2(3,{30.12,624.1,142.2,55.55,12.0,12.0,24.5,2.1,400.01});
     smatrix<double> m3(m2);
 
-    double err=1e-9;
+    
 
     smatrix<double> const madd(3,{153.52,666.52,152.2,87.95,77.7,111.9,25.5,4.1,403.01});
     smatrix<double> const msub(3,{93.28,-581.68,-132.2,-23.15,53.7,87.9,-23.5,-0.1,-397.01});
@@ -98,6 +121,15 @@ int main(int, char**) {
     if(matr_not_eq(m1+m2,madd,err))  {msg("addition");}    
     if(matr_not_eq(m1-m2,msub,err))  {msg("subtraction");}
     if(matr_not_eq(m1*m2,mmul,err))  {msg("matrix multiplication");}
+
+    smatrix<double> m_or=m1;
+    m1+=m2;
+    if(matr_not_eq(m1,madd,err))  {msg("operator +=");}
+    m1-=m2;
+    if(matr_not_eq(m1,m_or,err))  {msg("operator -=");}
+    m1*=m2;
+    if(matr_not_eq(m1,mmul,err))  {msg("operator *=");}
+
 
 
 

@@ -1,0 +1,13 @@
+[
+{
+  "directory": "c:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Projekt/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1420~1.275\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /JMC   /FoCMakeFiles\\contour_lines2.dir\\main2.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bence\\Documents\\UNIVERSITY\\halprog\\HalProg\\Projekt\\main2.cpp",
+  "file": "C:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Projekt/main2.cpp"
+},
+
+{
+  "directory": "c:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Projekt/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1420~1.275\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /JMC   /FoCMakeFiles\\contour_lines.dir\\main.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bence\\Documents\\UNIVERSITY\\halprog\\HalProg\\Projekt\\main.cpp",
+  "file": "C:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Projekt/main.cpp"
+}
+]
