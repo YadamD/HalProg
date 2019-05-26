@@ -87,7 +87,8 @@ std::istream& operator>>(std::istream& i, Vector2<T>& v){
     return i;
 }
 
-bool vecnoteq(Vector2<T> const & v, Vector2<T> const & u, tol){
+template<typename T>
+bool vecnoteq(Vector2<T> const & v, Vector2<T> const & u, double tol){
     if((v.x-u.x)>tol || (v.y-u.y)>tol){
         return true;
     }

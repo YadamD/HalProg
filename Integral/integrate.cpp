@@ -19,7 +19,7 @@ double integrate(int n, double x0, double x1) {
 
 int main() {
 	double result;
-	double x_0 = -1, x_1 = 3;
+	double x_0 = -1.0, x_1 = 3.0;
 	std::cout.precision(16);
     for(int i = 0; i < 6; i++){
 	    result = integrate(pow(10,i+2), x_0, x_1);

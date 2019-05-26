@@ -26,21 +26,31 @@ std::array <double, 2> line_fit(std::vector<double> const& x, std::vector<double
   if(denominator==0.0){
     std::cout << "Denominator can't be 0!" << '\n';
   }
-  double const b=numerator/denominator;
-  double const m=ymean-b*xmean;
+  double const m=numerator/denominator;
+  double const b=ymean-m*xmean;
 
-  return {b, m};
+  return {m, b};
 
 }
 
 int main(){
   std::vector<double> const v1={1,2,3,4};
   std::vector<double> const v2={4,6,8,10};
+  std::vector<double> const w1={1.0,2.0,3.0,4.0};
+  std::vector<double> const w2={1.0,1.2,3.0,7.0};
+  std::vector<double> const u1={1.32,4.56,4.99,6.15};
+  std::vector<double> const u2={-1.01,-3.2,-3.42,-7.07};
   std::array<double, 2> fit1=line_fit(v1,v2);
   std::array<double, 2> fit2=line_fit(v2,v1);
   std::array<double, 2> fit3=line_fit(v1,v1);
-  std::cout << "Fit1: m="<<fit1[1]<<" b="<<fit1[0] << '\n';
-  std::cout << "Fit2: m="<<fit2[1]<<" b="<<fit2[0] << '\n';
-  std::cout << "Fit3: m="<<fit3[1]<<" b="<<fit3[0] << '\n';
+  std::array<double, 2> fit4=line_fit(w1,w2);
+  std::array<double, 2> fit5=line_fit(u1,u2);
+  std::cout << "Fit1: m="<<fit1[0]<<" b="<<fit1[1] << '\n';
+  std::cout << "Fit2: m="<<fit2[0]<<" b="<<fit2[1] << '\n';
+  std::cout << "Fit3: m="<<fit3[0]<<" b="<<fit3[1] << '\n';
+  std::cout << "Fit4: m="<<fit4[0]<<" b="<<fit4[1] << '\n';
+  std::cout << "Fit4 difference with reference from internet: m_dif="<<fit4[0]-1.98<<" b_dif="<<fit4[1]+1.9<<'\n';
+  std::cout << "Fit5: m="<<fit5[0]<<" b="<<fit5[1] << '\n';
+  std::cout << "Fit5 difference with reference from internet: m_dif="<<fit5[0]+1.084472<<" b_dif="<<fit5[1]-0.9394304<<'\n';
   return 0;
 }

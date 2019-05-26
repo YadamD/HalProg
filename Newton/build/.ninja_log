@@ -1,0 +1,15 @@
+# ninja log v5
+0	830	580580496	CMakeFiles/newtt.dir/newt_type.cpp.obj	ed54eb77f99b2173
+10	1433	580580529	CMakeFiles/newts.dir/newt_sqrt.cpp.obj	d5b088d92d9fe8f2
+1	1787	580580529	newtt.exe	bee3167f6ceb6dfe
+1434	2635	580580530	newts.exe	b990655b911c19f0
+1	862	580584200	CMakeFiles/newtt.dir/newt_type.cpp.obj	ed54eb77f99b2173
+862	1408	580584200	newtt.exe	bee3167f6ceb6dfe
+1	968	580584330	CMakeFiles/newtt.dir/newt_type.cpp.obj	ed54eb77f99b2173
+969	1415	580584330	newtt.exe	bee3167f6ceb6dfe
+0	935	580584415	CMakeFiles/newtt.dir/newt_type.cpp.obj	ed54eb77f99b2173
+935	1311	580584415	newtt.exe	bee3167f6ceb6dfe
+1	992	580584485	CMakeFiles/newtt.dir/newt_type.cpp.obj	ed54eb77f99b2173
+993	1438	580584486	newtt.exe	bee3167f6ceb6dfe
+1	1050	580584667	CMakeFiles/newts.dir/newt_sqrt.cpp.obj	d5b088d92d9fe8f2
+1050	1455	580584667	newts.exe	b990655b911c19f0

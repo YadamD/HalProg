@@ -10,7 +10,7 @@ double sqrt_newton(double num, double x0){
     double xnew=x0;
     double delta=1;
     int k=1;
-    while(delta>0.01 and k<21){
+    while(delta>0.01 && k<21){
         double xold=xnew;
         xnew=xnew-(sq(xnew)-num)/(2*xnew);
         delta=std::abs(xold-xnew);
@@ -34,7 +34,7 @@ T sqrt_type(F1 fun, F2 der, T x0){
     T xnew=x0;
     T delta=1;
     int k=1;
-    while(delta>0.01 and k<21){
+    while(delta>0.01 && k<21){
         T xold=xnew;
         xnew=xnew-(fun(xnew))/der(xnew);
         delta=std::abs(xold-xnew);
@@ -46,8 +46,9 @@ T sqrt_type(F1 fun, F2 der, T x0){
 }
 
 int main(int, char**) {
+    std::cout.precision(16);
     double root=sqrt_type([](double x){ return sq(x)-612.0;   },[](double x){ return 2.0*x; }, 10.0);
-    double dif=24.7386337-root;
+    double dif=std::abs(24.7386337537059632-root);
     std::cout<<"The root is: "<<root<<"\n";
     std::cout<<"Difference: "<<dif;
 }

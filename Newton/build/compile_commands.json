@@ -1,0 +1,13 @@
+[
+{
+  "directory": "c:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Newton/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1420~1.275\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /JMC   /FoCMakeFiles\\newtt.dir\\newt_type.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bence\\Documents\\UNIVERSITY\\halprog\\HalProg\\Newton\\newt_type.cpp",
+  "file": "C:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Newton/newt_type.cpp"
+},
+
+{
+  "directory": "c:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Newton/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1420~1.275\\bin\\Hostx86\\x86\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /JMC   /FoCMakeFiles\\newts.dir\\newt_sqrt.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bence\\Documents\\UNIVERSITY\\halprog\\HalProg\\Newton\\newt_sqrt.cpp",
+  "file": "C:/Users/bence/Documents/UNIVERSITY/halprog/HalProg/Newton/newt_sqrt.cpp"
+}
+]
