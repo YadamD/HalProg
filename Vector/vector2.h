@@ -1,5 +1,4 @@
 #include<cmath>
-#include<vector>
 #include<iostream>
 
 template<typename T>
@@ -70,9 +69,7 @@ T len(Vector2<T> const& v){
 
 template<typename T>
 Vector2<T> normalize(Vector2<T> const& v){
-    Vector2<T> u;
-    u=v/len(v);
-    return u;
+    return v/len(v);
 }
 
 template<typename T>
@@ -89,7 +86,7 @@ std::istream& operator>>(std::istream& i, Vector2<T>& v){
 
 template<typename T>
 bool vecnoteq(Vector2<T> const & v, Vector2<T> const & u, double tol){
-    if((v.x-u.x)>tol || (v.y-u.y)>tol){
+    if(std::abs(v.x-u.x)>tol || std::abs(v.y-u.y)>tol){
         return true;
     }
     else{

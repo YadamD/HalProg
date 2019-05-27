@@ -14,13 +14,15 @@ smatrix<double> arr(char* fname, int ax, int ay){
                 file >> m(i,j);
     return m;}
 
-smatrix<int> addup(int x, int y, smatrix<int> a, smatrix<int> b){
+smatrix<int> addup(int x, int y, const smatrix<int>& a, const smatrix<int>& b){
     smatrix<int> sum(x);
     sum=a+b;
     return sum;
 }
 
-void write_arr(char* fname, int x, int y, smatrix<double> a){
+
+template<typename T>
+void write_arr(char* fname, int x, int y, const smatrix<T>& a){
     ofstream myfile (fname);
     if (myfile.is_open())
         {
@@ -36,24 +38,7 @@ void write_arr(char* fname, int x, int y, smatrix<double> a){
   else cout << "Unable to open file";    
 }
 
-void write_arr_int(char* fname, int x, int y, smatrix<int> a){
-
-    ofstream myfile (fname);
-    if (myfile.is_open())
-        {
-            for(int i = 0; i < y; i++){
-                for(int j = 0; j < x; j++){
-                   myfile << a(i,j) << " " ;
-
-                }
-                myfile << endl;
-        }
-    myfile.close();
-  }
-  else cout << "Unable to open file";    
-}
-
-smatrix<int> binary(const int x, const int y, smatrix<double> a, double threshold){
+smatrix<int> binary(const int x, const int y, const smatrix<double>& a, double threshold){
     smatrix<int> newa(x);
     for(int i=0; i<x; i++){
         for(int j=0; j<y; j++){
@@ -68,7 +53,7 @@ smatrix<int> binary(const int x, const int y, smatrix<double> a, double threshol
     return newa;
 }
 
-smatrix<int> msquares(const int x, const int y, smatrix<int> a){
+smatrix<int> msquares(const int x, const int y, const smatrix<int>& a){
     smatrix<int> ms(x-1);
     for(int i=0; i<x-1; i++){
         for(int j=0; j<y-1; j++){
@@ -81,7 +66,7 @@ smatrix<int> msquares(const int x, const int y, smatrix<int> a){
     return ms;
 }
 
-smatrix<int> combine(smatrix<double> a, int x, int y, vector<double> h){
+smatrix<int> combine(const smatrix<double>& a, int x, int y, vector<double> h){
     smatrix<int> test_comb(x-1);
     for(size_t i=0; i<h.size(); i++){
         smatrix<int> ms;
@@ -116,7 +101,7 @@ vector<int> next_cell(int cellID, int inside){
     return r;    
 }
 
-double wind(int x0, int y0, smatrix<int> a, int x, int y){
+double wind(int x0, int y0, const smatrix<int>& a, int x, int y){
 
     int st=0;
     for(int i=x0; i<x; i++){        
@@ -174,7 +159,7 @@ smatrix<double> h2=arr("hdata2.txt",250,250);
 
 smatrix<int> real_comb=combine(h2,250,250,{800.0,1000.0,1200.0,1400.0});
 
-write_arr_int("h2_matr.txt", 249,249,real_comb);
+write_arr("h2_matr.txt", 249,249,real_comb);
 write_arr("check_matr.txt", 250,250,h2);
 
 double deg=wind(100,100,real_comb,249,249);

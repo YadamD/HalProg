@@ -21,9 +21,11 @@ int main() {
 	double result;
 	double x_0 = -1.0, x_1 = 3.0;
 	std::cout.precision(16);
+	
     for(int i = 0; i < 6; i++){
-	    result = integrate(pow(10,i+2), x_0, x_1);
-	    std::cout<<"n = "<<pow(10,i+2)<<'\n'<<result<<'\n';
+			p=pow(10,i+2)
+	    result = integrate(p, x_0, x_1);
+	    std::cout<<"n = "<<p<<'\n'<<result<<'\n';
     }
     std::cout << "Expected value: 1.346387956803450376698"<<'\n';
   return 0;

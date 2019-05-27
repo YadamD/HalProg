@@ -18,11 +18,17 @@ std::array <double, 2> line_fit(std::vector<double> const& x, std::vector<double
   auto f1=[xmean](double x0, double xn){
     return x0+sq(xn-xmean);
   };
+  auto f2=[xmean,ymean](double x, double y){
+    return (x-xmean)*(y-ymean);
+  };
+  auto addup=[](double v1, double v2){
+    return v1+v2;
+  };
   double const denominator=std::accumulate(x.begin(),x.end(), 0.0, f1);
-  double numerator=0.0;
-  for(int i=0; i<static_cast<int>(x.size()); i++){
+  double numerator=std::inner_product(x.begin(),x.end(),y.begin(),0.0,addup,f2);
+  /*for(int i=0; i<static_cast<int>(x.size()); i++){
     numerator+=(x[i]-xmean)*(y[i]-ymean);
-  }
+  }*/
   if(denominator==0.0){
     std::cout << "Denominator can't be 0!" << '\n';
   }

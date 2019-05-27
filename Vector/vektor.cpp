@@ -6,7 +6,7 @@
 
 int main(){
 
-    double err=1e-6;
+    double const err=1e-14;
 
     Vector2<double> v;
     v.x=1.0;

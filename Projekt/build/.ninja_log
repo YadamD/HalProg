@@ -1,0 +1,5 @@
+# ninja log v5
+12	2318	580693104	CMakeFiles/contour_lines.dir/main.cpp.obj	4f2fa547a8371dbb
+1	1388	580693131	CMakeFiles/contour_lines2.dir/main2.cpp.obj	b10db4575716b026
+6	2078	580693132	contour_lines.exe	9aa0b512923797e
+1388	2951	580693133	contour_lines2.exe	dab892f9a5eeb938

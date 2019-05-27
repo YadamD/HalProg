@@ -8,20 +8,18 @@
 #include <cmath>
 #include <ostream>
 
-using namespace std;
-
 namespace detail
 {
 	template<typename M1, typename M2, typename F>
 	void transform_matrix1(M1 const& m1, M2& m2, F f)
 	{
-		transform(m1.cbegin(), m1.cend(), m2.begin(), f);
+		std::transform(m1.cbegin(), m1.cend(), m2.begin(), f);
 	}
 
 	template<typename M1, typename M2, typename M3, typename F>
 	void transform_matrix2(M1 const& m1, M2 const& m2, M3& m3, F f)
 	{
-		transform(m1.cbegin(), m1.cend(), m2.cbegin(), m3.begin(), f);
+		std::transform(m1.cbegin(), m1.cend(), m2.cbegin(), m3.begin(), f);
 	}
 }
 
@@ -30,13 +28,13 @@ auto sub = [](auto const& x, auto const& y){ return x - y; };
 
 
 template<typename T>
-vector<T> matmul(vector<T> const& m1, vector<T> const& m2, int l){
+std::vector<T> matmul(std::vector<T> const& m1, std::vector<T> const& m2, int l){
     int const len=static_cast<int>(m1.size());
     T sum=0;
     int n=l*l;
-    vector<T> u(len);
+    std::vector<T> u(len);
     if(len!=static_cast<int>(m2.size()) || n!=len){
-        cout<<"Multiplication error"<<endl;
+        std::cout<<"Multiplication error"<<std::endl;
         return u;
     }
     for(int i=0; i<l; i++){
@@ -59,13 +57,13 @@ class smatrix
     public:
         
         int l;
-        vector<T> data;
+        std::vector<T> data;
 
         smatrix(): l{1}, data{{0}}{};
         smatrix(int i): l(i), data(i*i, 0){};
-        smatrix(int i, vector<T> const& v){
+        smatrix(int i, std::vector<T> const& v){
             if(i*i!=static_cast<int>(v.size())){
-                cout<<"Parameter error!"<<endl;
+                std::cout<<"Parameter error!"<<std::endl;
             }
             else{
                 l=i;
@@ -75,7 +73,7 @@ class smatrix
         
         smatrix<T>(smatrix<T> const& copy): l{copy.l}, data{copy.data}{
             if(l!=copy.l){
-                cout<<"Error with copying"<<endl;
+                std::cout<<"Error with copying"<<std::endl;
                 exit(-1);
             }
         }
@@ -87,7 +85,7 @@ class smatrix
         T const& operator()(int i, int j)const {return data[l*i+j];}
 
         smatrix<T>& operator=(smatrix<T>&&)=default;
-        smatrix<T>(smatrix<T>&& o) noexcept : l(exchange(o.l, 0)), data(move(o.data)) {}
+        smatrix<T>(smatrix<T>&& o) noexcept : l(std::exchange(o.l, 0)), data(std::move(o.data)) {}
         
         smatrix<T>& operator=(const smatrix<T> &)=default;
 
@@ -110,7 +108,7 @@ class smatrix
             return *this;
         }
         smatrix<T>& operator*=(smatrix<T> const& m){
-           vector<T> u=matmul((*this).data, m.data, (*this).l);
+           std::vector<T> u=matmul((*this).data, m.data, (*this).l);
            (*this).data.swap(u);
            return *this;
         }
@@ -139,7 +137,7 @@ class smatrix
             return data.cend();
         }
 
-        vector<T> dat() const&{
+        std::vector<T> dat() const&{
 		return data;
 	    }
 
@@ -158,19 +156,19 @@ smatrix<T> operator+(smatrix<T> const& m1, smatrix<T> const& m2){
 template<typename T>
 smatrix<T>&& operator+( smatrix<T>&& m1, smatrix<T>const& m2){
     detail::transform_matrix2(m1,m2,m1,add);
-    return move(m1);
+    return std::move(m1);
 }
 
 template<typename T>
 smatrix<T>&& operator+( smatrix<T>const& m1, smatrix<T>&& m2){
     detail::transform_matrix2(m1,m2,m2,add);
-    return move(m2);
+    return std::move(m2);
 }
 
 template<typename T>
 smatrix<T>&& operator+( smatrix<T>&& m1, smatrix<T>&& m2){
     detail::transform_matrix2(m1,m2,m1,add);
-    return move(m1);
+    return std::move(m1);
 }
 
 
@@ -186,19 +184,19 @@ smatrix<T> operator-(smatrix<T> const& m1, smatrix<T> const& m2){
 template<typename T>
 smatrix<T>&& operator-( smatrix<T>&& m1, smatrix<T>const& m2){
     detail::transform_matrix2(m1,m2,m1,sub);
-    return move(m1);
+    return std::move(m1);
 }
 
 template<typename T>
 smatrix<T>&& operator-( smatrix<T>const& m1, smatrix<T>&& m2){
     detail::transform_matrix2(m1,m2,m2,sub);
-    return move(m2);
+    return std::move(m2);
 }
 
 template<typename T>
 smatrix<T>&& operator-( smatrix<T>&& m1, smatrix<T>&& m2){
     detail::transform_matrix2(m1,m2,m1,sub);
-    return move(m1);
+    return std::move(m1);
 }
 
 //Scalar Multiplication
@@ -212,7 +210,7 @@ smatrix<T> operator*(T const& c, smatrix<T> const& m){
 template<typename T>
 smatrix<T>&& operator*(T const& c, smatrix<T>&& m){
     detail::transform_matrix1(m, m, [c](T const& x){return c*x;});
-    return move(m);
+    return std::move(m);
 }
 
 template<typename T>
@@ -225,7 +223,7 @@ smatrix<T> operator*(smatrix<T> const& m, T const& c){
 template<typename T>
 smatrix<T>&& operator*(smatrix<T>&& m, T const& c){
     detail::transform_matrix1(m, m, [c](T const& x){return c*x;});
-    return move(m);
+    return std::move(m);
 }
 
 
@@ -241,14 +239,14 @@ smatrix<T> operator/(smatrix<T> const& m, T const& c){
 template<typename T>
 smatrix<T>&& operator/(smatrix<T>&& m, T const& c){
     detail::transform_matrix1(m.data, m.data, [c](T const& x){return x/c;});
-    return move(m);
+    return std::move(m);
 }
 
 
 template<typename T>
 int matmul2(smatrix<T>& m1, smatrix<T>& m2, int hlp){
     int n = m1.dimension();
-    vector<T> temp(n);
+    std::vector<T> temp(n);
     if(hlp == 1){
         for(int i = 0; i <  n; i++){
             for(int j = 0; j < n; j++){
@@ -286,7 +284,7 @@ int matmul2(smatrix<T>& m1, smatrix<T>& m2, int hlp){
 
 template<typename T>
 smatrix<T> operator*(smatrix<T> const& m1, smatrix<T> const& m2){
-    vector<T> v(m1.size());
+    std::vector<T> v(m1.size());
     v = matmul(m1.dat(), m2.dat(), m1.dimension());
     smatrix<T> temp(m1.dimension(), v);
     return temp;
@@ -295,29 +293,29 @@ smatrix<T> operator*(smatrix<T> const& m1, smatrix<T> const& m2){
 template<typename T>
 smatrix<T>&& operator*(smatrix<T> && m1, smatrix<T> & m2){
     if(matmul2(m1, m2, 1) != 0){
-        cout<<"Matrix multiplication error!"<<endl;
+        std::cout<<"Matrix multiplication error!"<<std::endl;
     }
-    return move(m1);
+    return std::move(m1);
 }
 
 template<typename T>
 smatrix<T>&& operator*(smatrix<T> & m1, smatrix<T>&& m2){
     if(matmul2(m1, m2, 2) != 0){
-        cout<<"Matrix multiplication error!"<<endl;
+        std::cout<<"Matrix multiplication error!"<<std::endl;
     }
-    return move(m2);
+    return std::move(m2);
 }
 
 template<typename T>
 smatrix<T>&& operator*(smatrix<T> && m1, smatrix<T>&& m2){ 
     if(matmul2(m1, m2, 1) != 0){
-        cout<<"Matrix multiplication error!"<<endl;
+        std::cout<<"Matrix multiplication error!"<<std::endl;
     }
-    return move(m1);
+    return std::move(m1);
 }
 
 template<typename T>
-ostream& operator<<(ostream& o, smatrix<T> const& m){
+std::ostream& operator<<(std::ostream& o, smatrix<T> const& m){
     o<<m.dimension()<<';';
     int n={m.dimension()};
     for(int i=0; i<n; i++){
@@ -329,43 +327,43 @@ ostream& operator<<(ostream& o, smatrix<T> const& m){
 }
 
 template<typename T>
-istream& operator>>(istream& s, smatrix<T>& m){
+std::istream& operator>>(std::istream& s, smatrix<T>& m){
     auto rewind = [state = s.rdstate(), pos = s.tellg(), &s](){s.seekg(pos); s.setstate(state);};
-    string temp_string;
-    getline(s, temp_string);
-    if(!s){rewind(); cout<<"Read error!"<<endl; return s;}
-    stringstream ss(temp_string);
-    if(!ss){rewind(); cout<<"Read error!"<<endl; return s;}
-    getline(ss, temp_string, ';');
+    std::string temp_string;
+    std::getline(s, temp_string);
+    if(!s){rewind(); std::cout<<"Read error!"<<std::endl; return s;}
+    std::stringstream ss(temp_string);
+    if(!ss){rewind(); std::cout<<"Read error!"<<std::endl; return s;}
+    std::getline(ss, temp_string, ';');
     if(static_cast<int>(temp_string.size()) > 0){
-        int dim = stoi(temp_string);
-        vector<T> temp_vec;
+        int dim = std::stoi(temp_string);
+        std::vector<T> temp_vec;
          for(int i = 0; i < dim * dim; i++){
-            getline(ss, temp_string, ',');
+            std::getline(ss, temp_string, ',');
             if(static_cast<int>(temp_string.size()) > 0){
-                stringstream temp_ss(temp_string);
+                std::stringstream temp_ss(temp_string);
                 T temp;
                 temp_ss >> temp;
                 temp_vec.push_back(temp);
             }
             else{
                 rewind();
-                cout<<"Dimension error!1"<<endl;
+                std::cout<<"Dimension error!1"<<std::endl;
                 return s;
             }
         }
         if(dim * dim == static_cast<int>(temp_vec.size())){
-            m.data = move(temp_vec);
+            m.data = std::move(temp_vec);
             m.l = dim;
         }
         else{
             rewind();
-            cout<<"Dimension error!2"<<endl;
+            std::cout<<"Dimension error!2"<<std::endl;
         }
     }
     else{
         rewind();
-        cout<<"Dimension error!3"<<endl;
+        std::cout<<"Dimension error!3"<<std::endl;
     }
     return s;
     
@@ -378,7 +376,7 @@ istream& operator>>(istream& s, smatrix<T>& m){
             return true;
         }
         for(int i=0; i<n*n; i++){
-            if(abs(m1[i]-m2[i])>err){
+            if(std::abs(m1[i]-m2[i])>err){
                 return true;
             }
         }
