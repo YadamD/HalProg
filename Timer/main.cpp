@@ -47,8 +47,9 @@ int main(int, char**) {
             auto t1 = chrono::high_resolution_clock::now();
             smatrix<double> mul=m1*m2;
             auto t2 = chrono::high_resolution_clock::now();
-            if(i==0 || chrono::duration_cast<chrono::microseconds>(t2-t1).count()<mint){
-                mint=chrono::duration_cast<chrono::microseconds>(t2-t1).count();
+            double dt=double(chrono::duration_cast<chrono::microseconds>(t2-t1).count());
+            if(i==0 || dt<mint){
+                mint=dt;
             }
         }
         //cout <<i<< " Allocation took: " << chrono::duration_cast<chrono::microseconds>(t1-t0).count() << " microseconds." << endl;

@@ -26,7 +26,7 @@ namespace detail
 auto add = [](auto const& x, auto const& y){ return x + y; };
 auto sub = [](auto const& x, auto const& y){ return x - y; };
 
-
+/*
 template<typename T>
 std::vector<T> matmul(std::vector<T> const& m1, std::vector<T> const& m2, int l){
     int const len=static_cast<int>(m1.size());
@@ -48,6 +48,9 @@ std::vector<T> matmul(std::vector<T> const& m1, std::vector<T> const& m2, int l)
     }
     return u;
 }
+*/
+
+
 
 template<typename T>
 class smatrix
@@ -100,18 +103,20 @@ class smatrix
             return *this;
         }
         smatrix<T>& operator*=(T const& c){
-            detail::transform_matrix1((*this).data, (*this).data, [=](T const& x){return x*c});
+            detail::transform_matrix1((*this).data, (*this).data, [=](T const& x){return x*c;});
             return *this;
         }
         smatrix<T>& operator/=(T const& c){
-            detail::transform_matrix1((*this).data, (*this).data, [=](T const& x){return x/c});
+            detail::transform_matrix1((*this).data, (*this).data, [=](T const& x){return x/c;});
             return *this;
         }
-        smatrix<T>& operator*=(smatrix<T> const& m){
+        /*smatrix<T>& operator*=(smatrix<T> const& m){
            std::vector<T> u=matmul((*this).data, m.data, (*this).l);
            (*this).data.swap(u);
            return *this;
-        }
+        }*/
+
+        smatrix<T>& operator*=(smatrix<T> const& m);
 
         int size() const{
             return l*l;
@@ -144,6 +149,29 @@ class smatrix
 
 };
 
+template<typename T>
+smatrix<T> matmul(smatrix<T> const& m1, smatrix<T> const& m2, int l){
+    //int const len=static_cast<int>(m1.size());
+    T sum=0;
+    int n=l*l;
+    smatrix<T> u(l);
+    if(static_cast<int>(m2.dimension())!=static_cast<int>(m1.dimension())){
+        std::cout<<"Multiplication error"<<std::endl;
+        return u;
+    }
+    for(int i=0; i<l; i++){
+        for(int j=0; j<l; j++){
+            sum=0;
+            for(int k=0; k<l; k++){
+                sum+=(m1(i,k))*(m2(k,j));
+            }
+            u(i,j)=sum;
+        }
+    }
+    return u;
+}
+
+
 //Addition
 
 template<typename T>
@@ -170,7 +198,6 @@ smatrix<T>&& operator+( smatrix<T>&& m1, smatrix<T>&& m2){
     detail::transform_matrix2(m1,m2,m1,add);
     return std::move(m1);
 }
-
 
 //Subtraction
 
@@ -283,11 +310,16 @@ int matmul2(smatrix<T>& m1, smatrix<T>& m2, int hlp){
 //Matrix Multiplication
 
 template<typename T>
+smatrix<T>& smatrix<T>::operator*=(smatrix<T> const& m){
+           smatrix<T> u=matmul(*this, m, m.dimension());
+           *this=u;
+           return *this;
+}
+
+template<typename T>
 smatrix<T> operator*(smatrix<T> const& m1, smatrix<T> const& m2){
-    std::vector<T> v(m1.size());
-    v = matmul(m1.dat(), m2.dat(), m1.dimension());
-    smatrix<T> temp(m1.dimension(), v);
-    return temp;
+    smatrix<T> v = matmul(m1, m2, m1.dimension());
+    return v;
 }
 
 template<typename T>

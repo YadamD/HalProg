@@ -18,7 +18,7 @@ int main(){
 
     Vector2<double> sum;
     sum.x=2.5;
-    sum.y=0.0;
+    sum.y=1.5;
 
     Vector2<double> dif;
     dif.x=-0.5;
@@ -34,10 +34,10 @@ int main(){
 
 
     if(vecnoteq((v+u),sum,err))     {std::cout<<" Addition error "<<std::endl;      }
-    if(vecnoteq((v-u),sum,err))     {std::cout<<" Subtraction error "<<std::endl;   }
+    if(vecnoteq((v-u),dif,err))     {std::cout<<" Subtraction error "<<std::endl;   }
     if(std::abs(dot(v,u)-1.5)>err)  {std::cout<<" Dot product error "<<std::endl;   }
     if(vecnoteq((v*2.0),mul,err))   {std::cout<<" Multiplication error "<<std::endl;}
-    if(vecnoteq((v/3.0),div,err))   {std::cout<<" Division error "<<std::endl;      }
+    if(vecnoteq((u/3.0),div,err))   {std::cout<<" Division error "<<std::endl;      }
 
     Vector2<double> v_or=v;
     if(vecnoteq(v,v_or,err))        {std::cout<<" = error "<<std::endl;             }
